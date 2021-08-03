@@ -1,5 +1,7 @@
 package br.com.arthurrocha.clientes.rest;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,10 @@ public class ClienteController {
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
 
+	@GetMapping
+	public List<Cliente> obterTodos() {
+		return repository.findAll();
+	}
 	
 	@DeleteMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

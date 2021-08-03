@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
 import { ClientesService } from '../../clientes.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientes-form',
@@ -12,12 +14,26 @@ export class ClientesFormComponent implements OnInit {
   cliente: Cliente;
   success: boolean = false;
   errors?: String[];
+  id: number;
 
-  constructor( private service : ClientesService) {
+  constructor( 
+    private service : ClientesService, 
+    private router : Router,
+    private activatedRoute : ActivatedRoute) {
     this.cliente = new Cliente();
   }
 
   ngOnInit(): void {
+    let params : Params = this.activatedRoute.params;
+    if(params && params.value && params.value.id){
+      this.id = params.value.id;
+      this.service
+        .getClienteById(this.id)
+        .subscribe( 
+          response => this.cliente = response,
+          erroResponse => this.cliente = new Cliente()
+          );
+    }
   }
 
   onSubmit(){
@@ -29,6 +45,14 @@ export class ClientesFormComponent implements OnInit {
       this.success = false;
       this.errors = errorResponse.error.errors;
     });
+  }
+
+  voltarListagem(){
+    this.router.navigate(['/clientes-lista']);
+  }
+
+  listaClientes(){
+    this.router.navigate(['/clientes-lista']);
   }
 
 }
