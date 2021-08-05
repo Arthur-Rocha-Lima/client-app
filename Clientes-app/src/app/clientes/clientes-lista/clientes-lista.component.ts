@@ -11,7 +11,10 @@ import { Cliente } from '../cliente';
 export class ClientesListaComponent implements OnInit {
 
   clientes: Cliente[] = [];
-  
+  clienteSelecionado: Cliente;
+  mensagemSucesso : String;
+  mensagemErro : String;
+
   constructor(private service: ClientesService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,6 +27,20 @@ export class ClientesListaComponent implements OnInit {
 
   novoCadastro(){
     this.router.navigate(['/clientes-form']);
+  }
+
+  preparaDelecao(cliente: Cliente){
+    this.clienteSelecionado = cliente;
+  }
+
+  deletarCliente(id: number){
+    this.service.deletar(id).subscribe(
+      response => {
+        this.mensagemSucesso = 'Cliente deletado com sucesso!';
+        this.ngOnInit();
+      },
+      erro => this.mensagemErro = 'Ocorreu um erro ao deletar o cliente.'
+    );
   }
 
 }
