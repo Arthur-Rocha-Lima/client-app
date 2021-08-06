@@ -25,6 +25,7 @@ export class ClientesFormComponent implements OnInit {
 
   ngOnInit(): void {
     let params : Params = this.activatedRoute.params;
+
     if(params && params.value && params.value.id){
       this.id = params.value.id;
       this.service
@@ -33,6 +34,7 @@ export class ClientesFormComponent implements OnInit {
           response => this.cliente = response,
           erroResponse => this.cliente = new Cliente()
           );
+          console.log("funcionou normal");
     }
   }
 
@@ -41,9 +43,7 @@ export class ClientesFormComponent implements OnInit {
       this.service.atualizar(this.cliente).subscribe( response => {
         this.success = true;
         this.errors = undefined;
-        this.cliente = response;
       }, errorResponse => {
-        this.success = false;
         this.errors = ['Erro ao atualizar o cliente.'];
       });
     }else{
