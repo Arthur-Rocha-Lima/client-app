@@ -17,32 +17,31 @@ import br.com.arthurrocha.clientes.service.UsuarioService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{ 
  
 	@Autowired
-	private UsuarioService usuarioService;
-	
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-			.userDetailsService(usuarioService)
-			.passwordEncoder(passwordEncoder());
-			
-	}
-	
-	@Bean
-	public AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.csrf().disable()
-			.cors()
-			.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+    private UsuarioService usuarioService;
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(usuarioService)
+            .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .cors()
+        .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
 } 
