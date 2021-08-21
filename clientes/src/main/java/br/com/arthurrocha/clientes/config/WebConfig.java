@@ -22,7 +22,7 @@ public class WebConfig {
 		corsConfiguration.setAllowedOrigins(all);
 		corsConfiguration.setAllowedHeaders(all);
 		corsConfiguration.setAllowedMethods(all);
-		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setAllowCredentials(false);
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
