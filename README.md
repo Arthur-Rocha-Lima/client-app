@@ -24,6 +24,7 @@ Ainda vou implementar umas melhorias para a implementação de um banco de dados
 - Spring Boot
 - JPA / Hibernate
 - Maven
+- Spring Security
 ## Front end
 - HTML / CSS / JS / TypeScript
 - Angular
